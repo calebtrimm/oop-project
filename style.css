@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  font-family: fantasy;
+  font-family: 'Press Start 2P', cursive;
 }
 
 #container {
@@ -23,6 +23,7 @@ body {
 
 #board > h1 {
   color: #fff;
+  font-size: 0.8rem;
 }
 
 .row {

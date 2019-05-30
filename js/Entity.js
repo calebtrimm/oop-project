@@ -12,7 +12,15 @@ Entity class definition
   - Updates the src of the element property
 Example use: not used by itself. 
 */
-
+class Entity {
+  constructor(src) {
+    this.element = document.createElement('img');
+    this.element.src = src;
+  }
+  setImg(src) {
+    this.element.src = src;
+  }
+}
 /*
 Wall class definition. A Wall is an Entity
 - constructor
@@ -21,7 +29,11 @@ Wall class definition. A Wall is an Entity
 Example use:
 new Wall()
 */
-
+class Wall extends Entity {
+  constructor() {
+    super('imgs/environment/wall.png');
+  }
+}
 /*
 Grass class definition. Grass is an Entity
 - constructor
@@ -30,7 +42,13 @@ Grass class definition. Grass is an Entity
 Example use:
 new Grass()
 */
-
+class Grass extends Entity {
+  constructor() {
+    super(
+      'imgs/environment/grass' + `${Math.floor(Math.random() * 3) + 1}` + '.png'
+    );
+  }
+}
 /*
 Gold class definition. Gold is an Entity
 - constructor
@@ -40,7 +58,12 @@ Gold class definition. Gold is an Entity
 Example use:
 new Gold()
 */
-
+class Gold extends Entity {
+  constructor(value) {
+    super('imgs/gold.gif');
+    this.value = value;
+  }
+}
 /*
 Dungeon class definition. Gold is an Entity
 - constructor
@@ -56,7 +79,19 @@ Dungeon class definition. Gold is an Entity
 Example use:
 new Dungeon(true, false, 30, [new Potion(2), new Bomb(2)]);
 */
-
+class Dungeon extends Entity {
+  constructor(isOpen, hasPrincess, gold, items) {
+    super(isOpen ? 'imgs/dungeon/open.png' : 'imgs/dungeon/closed.png');
+    this.isOpen = isOpen;
+    this.hasPrincess = hasPrincess;
+    this.gold = gold;
+    this.items = items;
+  }
+  open() {
+    this.isOpen = true;
+    this.src = 'imgs/dungeon/open.png';
+  }
+}
 /*
 Tradesman class definition. A Tradesman is an Entity
 - constructor
@@ -66,3 +101,9 @@ Tradesman class definition. A Tradesman is an Entity
 Example use:
 new Tradesman([new Potion(0), new Bomb(0), new Key()]);
 */
+class Tradesman extends Entity {
+  constructor(items) {
+    super('imgs/tradesman.gif');
+    this.items = items;
+  }
+}

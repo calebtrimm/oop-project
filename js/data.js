@@ -15,7 +15,7 @@ const MONSTER_NAMES = [
   'Black Knight',
   'Lakitu',
   'Rope',
-  'Wizzrobe Fire',
+  'Wizzrobe Fire'
 ];
 const MAX_MONSTERS = 8;
 const ENTITY_SIZE = 32;

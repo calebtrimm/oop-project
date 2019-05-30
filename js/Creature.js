@@ -24,7 +24,38 @@ The Creature class is an Entity. It has the following properties (not including 
   - sets an attack timeout that expires after attackSpeed. While the timeout is active, this method immediately returns false, else returns true.
 Example use: not used by itself. 
 */
-
+class Creature extends Entity {
+  constructor(name, img, level, items, gold) {
+    super(img);
+    this.name = name;
+    this.level = level || 1;
+    this.items = items || [];
+    this.gold = gold || 0;
+    this.hp = level * 100;
+    this.strength = level * 10;
+    this.attackSpeed = 3000 / level;
+  }
+  getMaxHp() {
+    this.maxHP = this.level * 100;
+    return this.maxHP;
+  }
+  hit(val) {
+    return (this.hp = Math.Max(0, this.hp - val));
+  }
+  attack(entity) {
+    if (this.attacking === undefined || this.attacking === false) {
+      this.attacking = true;
+      entity.hp = Math.max(0, entity.hp - this.strength);
+      if (entity.constructor.name === 'Monster') sounds.pattack.play();
+      else sounds.mattack.play();
+    } else {
+      return;
+    }
+    setTimeout(() => {
+      this.attacking = false;
+    }, this.attackSpeed);
+  }
+}
 /*
 The Monster class is a Creature. It has the following properties (bot including inherited properties):
 - constructor
@@ -39,3 +70,14 @@ The Monster class is a Creature. It has the following properties (bot including 
 Example use:
 new Monster('Anti Fairy', 1, [], 0); // Creates a Monster named Anti Fairy, level 1, no items and 0 gold. Only the name is required.
 */
+class Monster extends Creature {
+  constructor(name, img, level, items, gold) {
+    super(name, img, level, items, gold);
+    img = this.name.split(' ').join('');
+    this.setImg('imgs/monsters/' + img + '.gif');
+  }
+  attack(entity) {
+    // sounds.mattack.play();
+    super.attack(entity);
+  }
+}
